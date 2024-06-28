@@ -10,7 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 @Slf4j
@@ -19,11 +21,13 @@ public class AlunoService {
     @Autowired
     private AlunoRepository repository;
 
+    Logger logger = Logger.getLogger(AlunoService.class.getName());
+
     public List<AlunoDto> listarTodosOsAlunos() {
         try{
             List<Aluno> result = repository.findAll();
             if(result.isEmpty()){
-                throw new EntityNotFoundException("Não há alunos cadastrados!");
+                logger.info("Não há alunos cadastrados!");
             }
             log.info("Listando todos os alunos!");
 
@@ -33,7 +37,7 @@ public class AlunoService {
                         .nome(x.getNome())
                         .build();
             }).toList();
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw new RuntimeException("Houve um erro ao listar os alunos!");
         }
     }
@@ -42,9 +46,9 @@ public class AlunoService {
         try {
             Aluno result = repository.findById(id)
                     .orElseThrow(() -> new EntityNotFoundException("Aluno não encontrado!"));
-            log.info("Aluno encontrado com sucesso!");
+            logger.info("Aluno encontrado com sucesso!");
             return result;
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw new RuntimeException("Houve um erro ao buscar o aluno!");
         }
     }
@@ -52,9 +56,9 @@ public class AlunoService {
     public Aluno salvarAluno(Aluno aluno) {
         try{
             Aluno result = repository.save(aluno);
-            log.info("Aluno salvo com sucesso!");
+            logger.info("Aluno salvo com sucesso!");
             return result;
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw new RuntimeException("Houve um erro ao salvar o aluno!");
         }
     }
@@ -64,9 +68,9 @@ public class AlunoService {
             var aluno = repository.findById(id)
                     .orElseThrow(() -> new EntityNotFoundException("Aluno não encontrado!"));
             repository.delete(aluno);
-            log.info("Aluno apagado com sucesso!");
+            logger.info("Aluno apagado com sucesso!");
         }
-        catch (Exception e) {
+        catch (IllegalArgumentException e) {
             throw new RuntimeException("Houve um erro ao apagar o aluno!");
         }
     }
@@ -78,9 +82,9 @@ public class AlunoService {
                     .orElseThrow(() -> new EntityNotFoundException("Aluno não encontrado!"));
             aluno.setNome(nome);
             repository.save(aluno);
-            log.info("Aluno atualizado com sucesso!");
+            logger.info("Aluno atualizado com sucesso!");
             return aluno;
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw new RuntimeException("Houve um erro ao atualizar o aluno!");
         }
     }
@@ -93,9 +97,9 @@ public class AlunoService {
             List<Curso> cursos = aluno.getMatriculas().stream()
                     .map(Matricula::getCurso)
                     .toList();
-            log.info("Listando todos os cursos do aluno!");
+            logger.info("Listando todos os cursos do aluno!");
             return cursos;
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw new RuntimeException("Houve um erro ao listar os cursos do aluno!");
         }
     }

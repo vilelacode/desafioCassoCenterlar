@@ -8,10 +8,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "tb_cursos")
-///*@AllArgsConstructor
-//@NoArgsConstructor
-//@Getter
-//@Setter*/
 @Data
 public class Curso {
     @Id

@@ -19,6 +19,7 @@ estão fixas no arquivo `application.properties` sem nenhum tipo de máscara de 
 
 Tecnologias utilizadas foram:
 
+-Java 17
 - SpringDataJPA
 - H2
 - Lombok

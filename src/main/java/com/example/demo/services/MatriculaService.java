@@ -29,7 +29,7 @@ public class MatriculaService {
                     .orElseThrow(
                             () -> new EntityNotFoundException("Matricula não encontrada!"));
             matriculaRepository.delete(matricula);
-        }catch (Exception e) {
+        }catch (IllegalArgumentException e) {
             throw new RuntimeException("Houve um erro ao apagar a matricula!");
         }
 
@@ -38,12 +38,12 @@ public class MatriculaService {
     public List<Matricula> listarTodasAsMatriculas() {
         try{
             List<Matricula> result = matriculaRepository.findAll();
-            if(result.isEmpty()){
-                throw new EntityNotFoundException("Não há matriculas cadastradas!");
-            }
             logger.info("Listando todas as matriculas!");
+            if (result.isEmpty()) {
+                logger.info(("Não há matriculas cadastradas!"));
+            }
             return result;
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw new RuntimeException("Houve um erro ao listar as matriculas!");
         }
     }
@@ -54,7 +54,7 @@ public class MatriculaService {
                     .orElseThrow(() -> new EntityNotFoundException("Matricula não encontrada!"));
             logger.info("Matricula encontrada com sucesso!");
             return result;
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw new RuntimeException("Houve um erro ao buscar a matricula!");
         }
     }
@@ -64,7 +64,7 @@ public class MatriculaService {
                 Matricula result = matriculaRepository.save(matricula);
                 logger.info("Aluno matriculado com sucesso!");
                 return result;
-            } catch (Exception e) {
+            } catch (IllegalArgumentException e) {
                 throw new RuntimeException("Houve um erro ao matricular o aluno no curso!");
             }
 
@@ -77,7 +77,7 @@ public class MatriculaService {
                     .orElseThrow(() -> new EntityNotFoundException("Matricula não encontrada!"));
             matricula.setNota(dto.nota());
             return matriculaRepository.save(matricula);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw new RuntimeException("Houve um erro ao atualizar a nota da matricula!");
         }
 
@@ -100,7 +100,7 @@ public class MatriculaService {
                     .orElse(0.0));
 
             return template;
-        }catch (Exception e){
+        }catch (IllegalArgumentException e){
             throw new RuntimeException("Houve um erro ao gerar o boletin!");
         }
     }

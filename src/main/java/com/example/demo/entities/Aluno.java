@@ -10,10 +10,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "tb_alunos")
-/*@AllArgsConstructor
-@NoArgsConstructor
-@Setter
-@Getter*/
 @Data
 public class Aluno {
 

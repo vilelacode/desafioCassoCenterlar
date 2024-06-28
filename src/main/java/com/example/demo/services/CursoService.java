@@ -25,12 +25,9 @@ public class CursoService {
     public List<Curso> listarTodosOsCursos() {
         try{
             List<Curso> result = cursoRepository.findAll();
-            if(result.isEmpty()){
-                throw new EntityNotFoundException("Não há cursos cadastrados!");
-            }
             logger.info("Listando todos os cursos!");
             return result;
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw new RuntimeException("Houve um erro ao listar os cursos!");
         }
     }
@@ -40,7 +37,7 @@ public class CursoService {
             return cursoRepository.findById(id)
                     .orElseThrow(() -> new EntityNotFoundException("Curso não encontrado!"));
 
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw new RuntimeException("Houve um erro ao buscar o curso!");
         }
 
@@ -51,7 +48,7 @@ public class CursoService {
             Curso result = cursoRepository.save(curso);
             logger.info("Curso salvo com sucesso!");
             return result;
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw new RuntimeException("Houve um erro ao salvar o curso!");
         }
 
@@ -64,7 +61,7 @@ public class CursoService {
             cursoRepository.delete(curso);
             logger.info("Curso apagado com sucesso!");
         }
-        catch (Exception e) {
+        catch (IllegalArgumentException e) {
                 throw new RuntimeException("Houve um erro ao apagar o curso!");
             }
     }
@@ -77,10 +74,9 @@ public class CursoService {
             cursoRepository.save(obj);
             logger.info("Curso atualizado com sucesso!");
             return obj;
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw new RuntimeException("Houve um erro ao atualizar o curso!");
         }
-
     }
 
 
