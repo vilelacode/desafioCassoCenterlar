@@ -1,0 +1,30 @@
+
+   _____                    _    _____           _            _
+  / ____|                  | |  / ____|         | |          | |
+ | |     __ _ ___ ___  ___ | | | |     ___ _ __ | |_ ___ _ __| | __ _ _ __
+ | |    / _` / __/ __|/ _ \| | | |    / _ \ '_ \| __/ _ \ '__| |/ _` | '__|
+ | |___| (_| \__ \__ \ (_) | | | |___|  __/ | | | ||  __/ |  | | (_| | |
+  \_____\__,_|___/___/\___/|_|  \_____\___|_| |_|\__\___|_|  |_|\__,_|_|
+
+
+Essa aplicação foi desenvolvida por Fábio Vilela,
+para fins de teste de proficiência em Java.
+
+- Por se tratar de um teste, a aplicação não possui interface gráfica, também por se tratar de
+uma aplicação de teste a aplicação não possui autenticação e as informações de conexão com o banco de dados
+estão fixas no arquivo `application.properties` sem nenhum tipo de máscara de dados.
+
+- A aplicação possui um conjunto de endpoints REST, que podem ser acessados através do endereço `http://localhost:8080`
+
+
+Tecnologias utilizadas foram:
+
+- SpringDataJPA
+- H2
+- Lombok
+
+
+
+
+
+
